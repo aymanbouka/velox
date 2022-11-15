@@ -1,0 +1,97 @@
+/* simple css reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  padding-top: 20px;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.title {
+  display: flex;
+  padding-left: 20px;
+  align-items: center;
+}
+
+.title h3 {
+  display: flex;
+  padding-left: 15px;
+}
+
+.search {
+  width: 900px;
+}
+
+hr {
+  border: 1px solid black;
+}
+
+h2 {
+  padding-left: 20px;
+  font-size: 30px;
+}
+
+.new {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 40px;
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: black;
+}
+
+.sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#folder-icon {
+  padding-right: 20px;
+}
+
+#sort-icon {
+  padding-right: 20px;
+}
+
+.dropdown {
+  padding-right: 20px;
+}
+
+.btn-group {
+  display: flex;
+}
+
+.documents {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 30px 0px 100px 100px;
+}
+
+.thumbnail {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: auto;
+  margin: auto;
+}
