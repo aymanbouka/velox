@@ -8,11 +8,15 @@ from flask import request
 from flask import redirect, url_for 
 from model import Todo
 from database import db
+from flask_socketio import SocketIO
 
 
 app = Flask(__name__)  # create an app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
+# chat secret key
+app.config['SECRET_KEY'] = 'chatsecret'
+socketio = SocketIO(app)
 
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
@@ -29,8 +33,17 @@ def main():
     return render_template('main.html')
 
 @app.route('/chat')
-def chat():
+def sessions():
     return render_template('chat.html')
+
+def messageReceived(methods=['GET', 'POST']):
+    print('message was received!!!')
+
+@socketio.on('my event')
+def handle_my_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: ' + str(json))
+    socketio.emit('my response', json, callback=messageReceived)
+
 
 
 
