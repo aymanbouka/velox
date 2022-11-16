@@ -6,11 +6,12 @@ from flask import Flask  # Flask is the web app that we will customize
 from flask import render_template
 from flask import request
 from flask import redirect, url_for 
+from model import Todo
 from database import db
 
 
 app = Flask(__name__)  # create an app
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_note_app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 
 #  Bind SQLAlchemy db object to this Flask app
@@ -22,12 +23,16 @@ with app.app_context():
 
 # @app.route is a decorator. It gives the function "index" special powers.
 # In this case it makes it so anyone going to "your-url/" makes this function
-# get called. What it returns is what is shown as the web page
-@app.route('/')
-@app.route('/index')
-def index():    
-
+# get called. What it returns is what is shown as the web page)
+@app.route('/main')
+def main():    
     return render_template('main.html')
+
+@app.route('/chat')
+def chat():
+    return render_template('chat.html')
+
+
 
 
 

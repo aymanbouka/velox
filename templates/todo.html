@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>To do List</title>
         <link rel="stylesheet" href="/static/todo.css">
 
     </head>
@@ -13,10 +13,28 @@
     <body>
         <div class="container">
             <div id="newtask">
-                <input type="text" placeholder="Add Tasks">
-                <button id="push">Add</button>
+                <form action="{{ url_for(update_task, todo_id)}}" method="POST">
+                    <input type="text" name="name" placeholder="Add Tasks">
+                    <button type="submit" id="push">Add</button>
+                </form>
             </div>
-            <div id="tasks"></div>
+            <table>
+                <tbody>
+
+                    <tr>
+                        <td>Tasks</td>
+                        <td>Name</td>
+
+                        <td>Not Done</td>
+
+                        <td>Done</td>
+
+                        <td><a href="#">Update</a></td>
+                        <td><a href="#">Delete</a></td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
     </body>
 
