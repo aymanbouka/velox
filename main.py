@@ -34,7 +34,9 @@ with app.app_context():
 # get called. What it returns is what is shown as the web page)
 @app.route('/main')
 def main():
-    return render_template('main.html')
+    a_user = db.session.query(User).filter_by(email='chill117@uncc.edu').one()
+    my_projects = db.session.query(Project).all()
+    return render_template('main.html', notes = my_projects, user = a_user)
 
 @app.route('/main/new', methods=['GET', 'POST'])
 def new_project():
@@ -44,7 +46,7 @@ def new_project():
         from datetime import date
         today = date.today()
         today = today.strftime("%m-%d-%Y")
-        newProject = Project(title, text, today)
+        newProject = Project(title, text, today, User.id)
         db.session.add(newProject)
         db.session.commit()
         return redirect(url_for('main'))
