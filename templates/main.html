@@ -51,23 +51,22 @@
         <h2>Create</h2>
         <section class="create">
             <div class="new">
-
-                <div class="chat">
-                    <a href="#">
-                        <i class="fa-regular fa-comment fa-10x"></i>
-                        <h4>New Chat</h4>
+                <div class="project">
+                    <a href=main/new>
+                        <i class="fa-solid fa-file fa-9x"></i>
+                        <h4>New Project</h4>
                     </a>
                 </div>
                 <div class="task">
-                    <a href="#">
+                    <a href=todo>
                         <i class="fa-solid fa-list-check fa-10x"></i>
-                        <h4>New Task</h4>
+                        <h4>Tasks</h4>
                     </a>
                 </div>
-                <div class="project">
-                    <a href="#">
-                        <i class="fa-solid fa-file fa-9x"></i>
-                        <h4>New Project</h4>
+                <div class="chat">
+                    <a href=chat>
+                        <i class="fa-regular fa-comment fa-10x"></i>
+                        <h4>Messages</h4>
                     </a>
                 </div>
             </div>
@@ -76,7 +75,7 @@
         <hr>
         <section class="recent">
             <div class="sort">
-                <h2>Recent Workspaces</h2>
+                <h2>Recent Projects</h2>
 
                 <!-- Single button -->
                 <div class="btn-group">
@@ -103,45 +102,23 @@
 
             <div class="documents">
 
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
+            {% for project in project %}
 
-                            <div class="caption">
-                                <h3>Chat Titlte</h3>
+			
+                <tr>
+				    <td><a href="{{ url_for('project_view', project_id=project.id) }}">{{ project.title }}</a></td>
+				    <td>{{ project.date }}</td>
+				    <td><a href="{{ url_for('edit_project', project_id=project.id) }}">Edit</a></td>
+				    <td>
+					    <form action="{{ url_for('delete_project', project_id=project.id) }}" method="POST">
+						    <input type="submit" value="Delete">
+					    </form>
+				    </td>
+			    </tr>
+            
 
-                                <p><a href="#" class="btn btn-primary" role="button">Edit</a> <a href="#"
-                                        class="btn btn-default" role="button">Delete</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
+            {% endfor %}
 
-                            <div class="caption">
-                                <h3>Task Title</h3>
-
-                                <p><a href="#" class="btn btn-primary" role="button">Edit</a> <a href="#"
-                                        class="btn btn-default" role="button">Delete</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-
-                            <div class="caption">
-                                <h3>Project Title</h3>
-
-                                <p><a href="#" class="btn btn-primary" role="button">Edit</a> <a href="#"
-                                        class="btn btn-default" role="button">Delete</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
