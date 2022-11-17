@@ -4,7 +4,7 @@
 import os  # os is used to get environment variables IP & PORT
 from flask import Flask  # Flask is the web app that we will customize
 from flask import render_template
-from flask import request
+from flask import request, session
 from flask import redirect, url_for 
 from model import Todo
 from database import db
@@ -20,6 +20,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 # chat secret key
 app.config['SECRET_KEY'] = 'chatsecret'
+# New project secret key
+app.config['SECRET_KEY'] = 'SE3155'
 socketio = SocketIO(app)
 
 #  Bind SQLAlchemy db object to this Flask app
@@ -34,24 +36,24 @@ with app.app_context():
 # get called. What it returns is what is shown as the web page)
 @app.route('/main')
 def main():
-    a_user = db.session.query(User).filter_by(email='chill117@uncc.edu').one()
+    a_user = db.session.query(User).filter_by(email='chill117@uncc.edu')
     my_projects = db.session.query(Project).all()
     return render_template('main.html', notes = my_projects, user = a_user)
 
 @app.route('/main/new', methods=['GET', 'POST'])
 def new_project():
     if request.method == 'POST':
-        title = request.form['title']
-        text = request.form['projectText']
+        title = request.form["title"]
+        text = request.form["projectText"]
         from datetime import date
         today = date.today()
         today = today.strftime("%m-%d-%Y")
-        newProject = Project(title, text, today, User.id)
+        newProject = Project(title, text, today, session['user_id'])
         db.session.add(newProject)
         db.session.commit()
         return redirect(url_for('main'))
     else:
-        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu').one()
+        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu')
         return render_template('new.html', user = a_user)
 
 @app.route('/main/delete/<project_id>', methods=['POST'])

@@ -5,7 +5,7 @@ class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.String(100))
     email = db.Column("email", db.String(100))
-    projects = db.relationship("project", backref="user", lazy=True)
+    
 
     def __init__(self, name, email):
         self.name = name
@@ -26,12 +26,11 @@ class Project(db.Model):
     title = db.Column("title", db.String(200))
     text = db.Column("text", db.String(100))
     date = db.Column("date", db.String(50))
-    user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __init__(self, title, text, date, user_id):
         self.title = title
         self.text = text
         self.date = date
-        self.id = user_id
-
+        self.user_id = user_id
    
