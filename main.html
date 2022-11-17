@@ -104,7 +104,7 @@
 
             {% for project in project %}
 
-			<div class="row">
+			
                 <tr>
 				    <td><a href="{{ url_for('project_view', project_id=project.id) }}">{{ project.title }}</a></td>
 				    <td>{{ project.date }}</td>
@@ -115,7 +115,7 @@
 					    </form>
 				    </td>
 			    </tr>
-            </div>
+            
 
             {% endfor %}
 
