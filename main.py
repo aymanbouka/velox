@@ -8,7 +8,11 @@ from flask import request
 from flask import redirect, url_for 
 from model import Todo
 from database import db
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO 
+from model import Todo as Todo
+from model import Project as Project
+from model import User as User
+
 
 
 app = Flask(__name__)  # create an app
@@ -29,8 +33,48 @@ with app.app_context():
 # In this case it makes it so anyone going to "your-url/" makes this function
 # get called. What it returns is what is shown as the web page)
 @app.route('/main')
-def main():    
+def main():
     return render_template('main.html')
+
+@app.route('/main/new', methods=['GET', 'POST'])
+def new_project():
+    if request.method == 'POST':
+        title = request.form['title']
+        text = request.form['projectText']
+        from datetime import date
+        today = date.today()
+        today = today.strftime("%m-%d-%Y")
+        newProject = Project(title, text, today)
+        db.session.add(newProject)
+        db.session.commit()
+        return redirect(url_for('main'))
+    else:
+        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu').one()
+        return render_template('new.html', user = a_user)
+
+@app.route('/main/delete/<project_id>', methods=['POST'])
+def delete_project(project_id):
+    my_project = db.session.query(Project).filter_by(id=project_id).one()
+    db.session.delete(my_project)
+    db.session.commit()
+    return redirect(url_for('main'))
+    
+@app.route('/main/edit/<project_id>', methods=['GET', 'POST'])
+def edit_project(project_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        text = request.form['projectText']
+        project = db.session.query(Project).filter_by(id=project_id).one()
+        project.title = title
+        project.text = text
+        db.session.add(project)
+        db.session.commit()
+
+        return redirect(url_for('main'))
+    else:
+        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu').one()
+        my_project = db.session.query(Project).filter_by(id=project_id).one()
+        return render_template('new.html', project=my_project, user = a_user)
 
 @app.route('/chat')
 def sessions():
