@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Velox">
+        <title>Velox - New Project</title>
+        <!-- styles -->
+        
+    </head>
+            {% if project %}
+			    <form action="{{ url_for('edit_project', project_id=project.id) }}" method="post">
+		    {% else %}
+			    <form action="new" method="post">
+		    {% endif %}
+            <p><label>Title </label></p>
+            <p><input type="text" name="title" value="{% if project %}{{project.title}} {% endif %}"/></p>
+            <p><label>Project </label></p>
+		    <p>
+                <textarea name="projectText" rows="50" cols="250">
+                    {% if project %}
+                        {{project.text}}
+                    {% else %}
+                        Create your new project ...
+                    {% endif %}
+                </textarea>
+		    </p>
+           <p>
+                {% if project %}
+                    <input type="submit" value="Update Project"/>
+                {% else %}
+			        <input type="submit" value="Add Project"/>
+                {% endif %}
+			</p>
+    </body>
+</html>
