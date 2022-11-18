@@ -10,17 +10,15 @@ nav {
   align-items: center;
   justify-content: space-between;
   width: 95%;
-}
-
-.title {
-  display: flex;
-  padding-left: 20px;
-  align-items: center;
+  text-align: center;
 }
 
 .title h3 {
   display: flex;
   padding-left: 15px;
+  font-size: 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .search {
@@ -57,33 +55,28 @@ a {
   color: black;
 }
 
-.sort {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#folder-icon {
-  padding-right: 20px;
-}
-
-#sort-icon {
-  padding-right: 20px;
-}
-
 .dropdown {
   padding-right: 20px;
 }
 
-.btn-group {
+.sort {
   display: flex;
+  flex: 2;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .documents {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 30px 0px 100px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: fit-content;
+  padding: 30px;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 .thumbnail {
@@ -94,4 +87,11 @@ a {
   align-items: center;
   padding: auto;
   margin: auto;
+}
+
+.documents input {
+  padding: 3px;
+  background-color: lightblue;
+  border-radius: 8px;
+  margin-bottom: 5px;
 }

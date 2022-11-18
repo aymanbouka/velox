@@ -8,7 +8,6 @@ from flask import request, session
 from flask import redirect, url_for 
 from model import Todo
 from database import db
-from flask_socketio import SocketIO 
 from model import Todo as Todo
 from model import Project as Project
 from model import User as User
@@ -18,11 +17,7 @@ from model import User as User
 app = Flask(__name__)  # create an app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
-# chat secret key
-app.config['SECRET_KEY'] = 'chatsecret'
-# New project secret key
-app.config['SECRET_KEY'] = 'SE3155'
-socketio = SocketIO(app)
+
 
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
@@ -37,8 +32,14 @@ with app.app_context():
 @app.route('/main')
 def main():
     a_user = db.session.query(User).filter_by(email='chill117@uncc.edu')
-    my_projects = db.session.query(Project).all()
-    return render_template('main.html', notes = my_projects, user = a_user)
+    my_project = db.session.query(Project).all()
+    return render_template('main.html', project = my_project, user = a_user)
+
+@app.route('/main/<project_id>')
+def get_project(project_id):
+    a_user =  db.session.query(User).filter_by(email='chill117@uncc.edu').one()
+    my_project = db.session.query(Project).filter_by(id=project_id).one()
+    return render_template('main.html', project = my_project, user = a_user)
 
 @app.route('/main/new', methods=['GET', 'POST'])
 def new_project():
@@ -80,17 +81,6 @@ def edit_project(project_id):
         my_project = db.session.query(Project).filter_by(id=project_id).one()
         return render_template('new.html', project=my_project, user = a_user)
 
-@app.route('/chat')
-def sessions():
-    return render_template('chat.html')
-
-def messageReceived(methods=['GET', 'POST']):
-    print('message was received!!!')
-
-@socketio.on('my event')
-def handle_my_custom_event(json, methods=['GET', 'POST']):
-    print('received my event: ' + str(json))
-    socketio.emit('my response', json, callback=messageReceived)
 
 
 

@@ -34,18 +34,6 @@
                 <h3>Velox</h3>
             </div>
 
-            <div class="search">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <!-- <div class="input-group">
-
-                            <input type="text" class="form-control" placeholder="Search for..."><span
-                                class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>/input-group -->
-                    </div>
-
         </nav>
         <hr>
         <h2>Create</h2>
@@ -65,8 +53,8 @@
                 </div>
                 <div class="chat">
                     <a href=chat>
-                        <i class="fa-regular fa-comment fa-10x"></i>
-                        <h4>Messages</h4>
+                        <i class="fa-regular fa-envelope fa-10x"></i>
+                        <h4>Email</h4>
                     </a>
                 </div>
             </div>
@@ -78,46 +66,43 @@
                 <h2>Recent Projects</h2>
 
                 <!-- Single button -->
-                <div class="btn-group">
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            Owned by <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">By Me</a></li>
-                            <li><a href="#">By Anyone</a></li>
 
-                        </ul>
-                    </div>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Owned by <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">By Me</a></li>
+                        <li><a href="#">By Anyone</a></li>
 
-                    <a href="#"><i id="folder-icon" class="fa-regular fa-folder fa-2x"></i></a>
-
-                    <a href="#"><i id="sort-icon" class="fa-solid fa-sort fa-2x"></i></a>
-
-
+                    </ul>
                 </div>
-
             </div>
+
+
 
             <div class="documents">
 
-            {% for project in project %}
-
-			
+                {% for project in project %}
                 <tr>
-				    <td><a href="{{ url_for('project_view', project_id=project.id) }}">{{ project.title }}</a></td>
-				    <td>{{ project.date }}</td>
-				    <td><a href="{{ url_for('edit_project', project_id=project.id) }}">Edit</a></td>
-				    <td>
-					    <form action="{{ url_for('delete_project', project_id=project.id) }}" method="POST">
-						    <input type="submit" value="Delete">
-					    </form>
-				    </td>
-			    </tr>
-            
+                    <td><a href="{{ url_for('get_project', project_id=project.id) }}">{{ project.title }}</a></td>
+                    <td>{{ project.date }}</td>
+                    <td>
+                        <form action="{{ url_for('edit_project', project_id=project.id) }}" method="POST">
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
 
-            {% endfor %}
+                        <form action="{{ url_for('delete_project', project_id=project.id) }}" method="POST">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+
+
+                {% endfor %}
 
             </div>
         </section>
