@@ -89,7 +89,7 @@
                     <td><a href="{{ url_for('get_project', project_id=project.id) }}">{{ project.title }}</a></td>
                     <td>{{ project.date }}</td>
                     <td>
-                        <form action="{{ url_for('edit_project', project_id=project.id) }}" method="POST">
+                        <form action="{{ url_for('edit_project', project_id=project.id) }}" method="GET">
                             <input type="submit" value="Edit">
                         </form>
                     </td>
