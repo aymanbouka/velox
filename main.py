@@ -39,7 +39,7 @@ def main():
 def get_project(project_id):
     a_user =  db.session.query(User).filter_by(email='chill117@uncc.edu').one()
     my_project = db.session.query(Project).filter_by(id=project_id).one()
-    return render_template('main.html', project = my_project, user = a_user)
+    return render_template('project_view.html', project = my_project, user = a_user)
 
 @app.route('/main/new', methods=['GET', 'POST'])
 def new_project():
@@ -49,7 +49,7 @@ def new_project():
         from datetime import date
         today = date.today()
         today = today.strftime("%m-%d-%Y")
-        newProject = Project(title, text, today, session['user_id'])
+        newProject = Project(title, text, today)
         db.session.add(newProject)
         db.session.commit()
         return redirect(url_for('main'))
@@ -67,20 +67,18 @@ def delete_project(project_id):
 @app.route('/main/edit/<project_id>', methods=['GET', 'POST'])
 def edit_project(project_id):
     if request.method == 'POST':
-        title = request.form['title']
-        text = request.form['projectText']
+        title = request.form["title"]
+        text = request.form["projectText"]
         project = db.session.query(Project).filter_by(id=project_id).one()
         project.title = title
         project.text = text
         db.session.add(project)
         db.session.commit()
-
         return redirect(url_for('main'))
     else:
-        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu').one()
-        my_project = db.session.query(Project).filter_by(id=project_id).one()
-        return render_template('new.html', project=my_project, user = a_user)
-
+        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu')
+        my_project =  db.session.query(Project).filter_by(id=project_id).one()
+        return render_template('new.html', project=my_project, user=a_user)
 
 
 
