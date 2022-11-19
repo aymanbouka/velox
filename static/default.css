@@ -9,7 +9,7 @@ main {
 
 p {
     margin-right: auto;
-    margin-left: 400px;
+    margin-left: 13px;
 }
 
 h2 {
@@ -18,8 +18,7 @@ h2 {
 
 div {
     text-align: center;
-    width: 638px; 
-
+    width: 942px;
 }
 
 img {
@@ -108,10 +107,11 @@ h1 {
 
 .textbox{
     
-    display: flex;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    height: 883px;
+    border: solid 3px black;
     
 }
 #project {
@@ -140,3 +140,7 @@ h1 {
   
   
 } */
+
+#project-view-para {
+    text-align: center;
+}

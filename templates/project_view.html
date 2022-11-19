@@ -12,25 +12,45 @@
    
 </head>
 <body>
-    <!-- <a class="back_button" href="landingpage.html">
+    <a class="back_button" href="templates/main.html">
         <i class="fa-solid fa-arrow-left"></i>
-       </a> -->
+       </a>
     <div class="box">
         
         <h1 id="h1">Document</h1>
-    <div id="edit-button-project-edit">
-        <a href="project_edit.html">
-        <button id="edit-button">Edit</button>
-        </a>
     </div>
 
-    </div>
+<p>
+    {% if project %}
+        <form action="{{ url_for('get_project', project_id=project.id) }}" method="post">
+    {% else %}
+        <form action="new" method="post">
+    {% endif %}
+    <p><label>Title: </label></p>
+    <p>{% if project %}{{project.title}} {% endif %}</p>
+    <!-- <p><input type="text" name="title" value=""/></p> -->
+  
+</p>
+
     <div class="textbox">
-       <textarea id="project" rows="50" cols="1000"> 
-       </textarea>
+        {% if project %}
+        <form action="{{ url_for('get_project', project_id=project.id) }}" method="post">
+    {% else %}
+        <form action="new" method="post">
+    {% endif %}
+ 
+    <p id="project-view-para"><label>Project </label></p>
+    <p>
+            {% if project %}
+                {{project.text}}
+            {% else %}
+                Create your new project ...
+            {% endif %}
+    </p> 
     </div>
     
 </body>
+
 <!-- <footer id="footer">
     <form>
         <label for="comment">Comment</label>
