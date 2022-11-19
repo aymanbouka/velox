@@ -8,6 +8,8 @@
         <!-- styles -->
         
     </head>
+    <body>
+
             {% if project %}
 			    <form action="{{ url_for('edit_project', project_id=project.id) }}" method="post">
 		    {% else %}
