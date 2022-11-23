@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>To do List</title>
-        <link rel="stylesheet" href="/static/todo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</head>
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class = "ui center aligned header">To Do List</h1>
 
-    </head>
-
-    <body>
-        <div class="container">
-            <div id="newtask">
-                <form action="{{ url_for(update_task, todo_id)}}" method="POST">
-                    <input type="text" name="name" placeholder="Add Tasks">
-                    <button type="submit" id="push">Add</button>
-                </form>
+        <form class ="ui form" action="/todo/add" method="POST">
+            <div class="field">
+                <label for="title">Tasks</label>
+                <input type="text" name="title" placeholder="Enter New Tasks...">
+                <button class = "ui blue button" type="submit">Add</button>
             </div>
-            <table>
-                <tbody>
+        </form>
 
-                    <tr>
-                        <td>Tasks</td>
-                        <td>Name</td>
+        {% for todo in todo_list %}
+        <div class="ui segment">
+            <p class = "ui big header"> {{ todo.task_id}} | {{todo.name}} </p>
 
-                        <td>Not Done</td>
+            {% if todo.status == False %}
+                <span class = "ui orange label">Not Completed</span>
+            {% else %}
+                <span class = "ui green label">Completed</span>
+            {% endif %}
 
-                        <td>Done</td>
+            <a class="ui blue button" href="/update/{{ todo.task_id }}">Update</a>
+            <a class="ui red button" href="/delete/{{ todo.task_id }}">Delete</a>
 
-                        <td><a href="#">Update</a></td>
-                        <td><a href="#">Delete</a></td>
-                    </tr>
-
-                </tbody>
-            </table>
         </div>
-    </body>
-
+        {% endfor %}
+    </div>       
+</body>
 </html>

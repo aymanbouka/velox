@@ -12,12 +12,11 @@ class User(db.Model):
         self.email = email
 
 class Todo(db.Model):
-    task_id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(100))
-    status = db.Column(db.Boolean)
+    task_id = db.Column("task_id",db.Integer, primary_key = True)
+    name = db.Column("name",db.String(100))
+    status = db.Column("status",db.Boolean)
 
-    def __init__(self,task_id,name,status):
-        self.task_id = task_id
+    def __init__(self,name,status):
         self.name = name
         self.status = status
 

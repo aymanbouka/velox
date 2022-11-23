@@ -1,16 +1,15 @@
 # FLASK Tutorial 1 -- We show the bare-bones code to get an app up and running
-
 # imports
 import os  # os is used to get environment variables IP & PORT
 from flask import Flask  # Flask is the web app that we will customize
 from flask import render_template
 from flask import request, session
 from flask import redirect, url_for 
-from model import Todo
 from database import db
 from model import Todo as Todo
 from model import Project as Project
 from model import User as User
+from flask_sqlalchemy import SQLAlchemy
 
 
 
@@ -18,13 +17,13 @@ app = Flask(__name__)  # create an app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 
-
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
 
 # Setup models
 with app.app_context():
     db.create_all()   # run under the app context
+
 
 # @app.route is a decorator. It gives the function "index" special powers.
 # In this case it makes it so anyone going to "your-url/" makes this function
@@ -80,14 +79,38 @@ def edit_project(project_id):
         my_project =  db.session.query(Project).filter_by(id=project_id).one()
         return render_template('new.html', project=my_project, user=a_user)
 
+@app.route("/todo")
+def todo():
+    todo_list = Todo.query.all()
+    print(todo_list)
+    return render_template("todo.html", todo_list=todo_list)
 
+@app.route("/todo/add", methods=['GET',"POST"])
+def add():
+    name = request.form.get("title")
+    new_todo = Todo(name=name, status=False)
+    db.session.add(new_todo)
+    db.session.commit()
+    return redirect(url_for("todo"))
 
+@app.route("/update/<int:todo_task_id>")
+def update(todo_task_id):
+    todo = Todo.query.filter_by(task_id=todo_task_id).first()
+    todo.status = not todo.status
+    db.session.commit()
+    return redirect(url_for("todo"))
 
-
-
+@app.route("/delete/<int:todo_task_id>")
+def delete(todo_task_id):
+    todo = Todo.query.filter_by(task_id=todo_task_id).first()
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect(url_for("todo"))
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
+
+
 
 # To see the web page in your web browser, go to the url,
 #   http://127.0.0.1:5000/index
