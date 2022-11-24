@@ -10,12 +10,16 @@ from model import Todo as Todo
 from model import Project as Project
 from model import User as User
 from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO, send, emit
 
 
 
 app = Flask(__name__)  # create an app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
+app.config['SECRET'] = 'secret!123'
+socketio = SocketIO(app, cors_allowed_origins = '*')
+
 
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
@@ -106,6 +110,20 @@ def delete(todo_task_id):
     db.session.delete(todo)
     db.session.commit()
     return redirect(url_for("todo"))
+
+
+@app.route( '/chat' )
+def hello():
+  return render_template( 'chat.html' )
+
+def messageRecived():
+  print( 'message was received!!!' )
+
+@socketio.on( 'my event' )
+def handle_my_custom_event( json ):
+  print( 'recived my event: ' + str( json ) )
+  socketio.emit( 'my response', json, callback=messageRecived )
+
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
