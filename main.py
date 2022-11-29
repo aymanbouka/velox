@@ -11,13 +11,15 @@ from model import Project as Project
 from model import User as User
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, send, emit
-
+from forms import RegisterForm, LoginForm
+import bcrypt
 
 
 app = Flask(__name__)  # create an app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 app.config['SECRET'] = 'secret!123'
+app.config['SECRET_KEY'] = 'SE3155'
 socketio = SocketIO(app, cors_allowed_origins = '*')
 
 
@@ -33,33 +35,38 @@ with app.app_context():
 # In this case it makes it so anyone going to "your-url/" makes this function
 # get called. What it returns is what is shown as the web page)
 @app.route('/')
+@app.route('/velox')
+def velox():
+    return render_template("landing_page.html")
+
 @app.route('/main')
 def main():
-    a_user = db.session.query(User).filter_by(email='chill117@uncc.edu')
-    my_project = db.session.query(Project).all()
-    return render_template('main.html', project = my_project, user = a_user)
+    if session.get('user'):
+        my_projects = db.session.query(Project).filter_by(user_id=session['user_id']).all()
+        return render_template('main.html', project = my_projects, user = session['user'])
+    return render_template("landing_page.html")
 
 @app.route('/main/<project_id>')
 def get_project(project_id):
-    a_user =  db.session.query(User).filter_by(email='chill117@uncc.edu').one()
-    my_project = db.session.query(Project).filter_by(id=project_id).one()
-    return render_template('project_view.html', project = my_project, user = a_user)
+    if session.get('user'):
+        my_project = db.session.query(Project).filter_by(id=project_id).one()
+    return render_template('project_view.html', project = my_project, user = session['user'])
 
 @app.route('/main/new', methods=['GET', 'POST'])
 def new_project():
-    if request.method == 'POST':
-        title = request.form["title"]
-        text = request.form["projectText"]
-        from datetime import date
-        today = date.today()
-        today = today.strftime("%m-%d-%Y")
-        newProject = Project(title, text, today)
-        db.session.add(newProject)
-        db.session.commit()
-        return redirect(url_for('main'))
-    else:
-        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu')
-        return render_template('new.html', user = a_user)
+    if session.get('user'):  
+        if request.method == 'POST':
+            title = request.form["title"]
+            text = request.form["projectText"]
+            from datetime import date
+            today = date.today()
+            today = today.strftime("%m-%d-%Y")
+            newProject = Project(title, text, today, session['user_id'])
+            db.session.add(newProject)
+            db.session.commit()
+            return redirect(url_for('main'))
+        else:
+            return render_template('new.html', user = session['user'])
 
 @app.route('/main/delete/<project_id>', methods=['POST'])
 def delete_project(project_id):
@@ -70,19 +77,19 @@ def delete_project(project_id):
     
 @app.route('/main/edit/<project_id>', methods=['GET', 'POST'])
 def edit_project(project_id):
-    if request.method == 'POST':
-        title = request.form["title"]
-        text = request.form["projectText"]
-        project = db.session.query(Project).filter_by(id=project_id).one()
-        project.title = title
-        project.text = text
-        db.session.add(project)
-        db.session.commit()
-        return redirect(url_for('main'))
-    else:
-        a_user = db.session.query(User).filter_by(email='chill117@uncc.edu')
-        my_project =  db.session.query(Project).filter_by(id=project_id).one()
-        return render_template('new.html', project=my_project, user=a_user)
+    if session.get('user'):      
+        if request.method == 'POST':
+            title = request.form["title"]
+            text = request.form["projectText"]
+            project = db.session.query(Project).filter_by(id=project_id).one()
+            project.title = title
+            project.text = text
+            db.session.add(project)
+            db.session.commit()
+            return redirect(url_for('main'))
+        else:
+            my_project =  db.session.query(Project).filter_by(id=project_id).one()
+            return render_template('new.html', project=my_project, user=session['user'])
 
 @app.route("/todo")
 def todo():
@@ -125,6 +132,53 @@ def handle_my_custom_event( json ):
   print( 'recived my event: ' + str( json ) )
   socketio.emit( 'my response', json, callback=messageRecived )
 
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+    form = RegisterForm()
+
+    if request.method == 'POST' and form.validate_on_submit():
+        # salt and hash password
+        h_password = bcrypt.hashpw(
+            request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        # get entered user data
+        first_name = request.form['firstname']
+        last_name = request.form['lastname']
+        # create user model
+        new_user = User(first_name, last_name, request.form['email'], h_password)
+        # add user to database and commit
+        db.session.add(new_user)
+        db.session.commit()
+        # save the user's name to the session
+        session['user'] = first_name
+        session['user_id'] = new_user.id  # access id value from user model of this newly added user
+        # show user dashboard view
+        return redirect(url_for('main'))
+
+    # something went wrong - display register view
+    return render_template('signup.html', form=form)
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    login_form = LoginForm()
+    # validate_on_submit only validates using POST
+    if login_form.validate_on_submit():
+        # we know user exists. We can use one()
+        the_user = db.session.query(User).filter_by(email=request.form['email']).one()
+        # user exists check password entered matches stored password
+        if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
+            # password match add user info to session
+            session['user'] = the_user.first_name
+            session['user_id'] = the_user.id
+            # render view
+            return redirect(url_for('main'))
+
+        # password check failed
+        # set error message to alert user
+        login_form.password.errors = ["Incorrect username or password."]
+        return render_template("login.html", form=login_form)
+    else:
+        # form did not validate or GET request
+        return render_template("login.html", form=login_form)
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
