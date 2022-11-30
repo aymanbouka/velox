@@ -1,73 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <title>Velox</title>
-    <link rel="stylesheet" href="/static/default.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <head>
+        <title>Velox</title>
+        <link rel="stylesheet" href="/static/signup.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    </head>
 
-<body>
-   <a class="back_button" href=main">
-    <i class="fa-solid fa-arrow-left"></i>
-   </a>
-    <div class="center-content-for-sign-up">
-        <div class="formwrapper">
-            <h2 class="title">Register</h2>
-            <form method="POST" action="/register">
-                <div class="form-field">{{ form.firstname.label }} {{ form.firstname }}
-                    {% if form.firstname.errors %}
-                    <ul class="errors">
-                        {% for error in form.firstname.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="form-field">{{ form.lastname.label }} {{ form.lastname }}
-                    {% if form.lastname.errors %}
-                    <ul class="errors">
-                        {% for error in form.lastname.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="form-field">{{ form.email.label }} {{ form.email }}
-                    {% if form.email.errors %}
-                    <ul class="errors">
-                        {% for error in form.email.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="form-field">{{ form.password.label }} {{ form.password }}
-                    {% if form.password.errors %}
-                    <ul class="errors">
-                        {% for error in form.password.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                <div class="form-field">{{ form.confirmPassword.label }} {{ form.confirmPassword }}
-                    {% if form.confirmPassword.errors %}
-                    <ul class="errors">
-                        {% for error in form.confirmPassword.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                {{ form.submit }}
-            </form>
-    </div>
-</body>
-<footer>
+    <body>
+        <a class="back_button" href=main>
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="container">
+            <div class="formwrapper">
+                <h2 class="title">Register</h2>
+                <form method="POST" action="/register">
+                    <div class="form-field">{{ form.firstname.label }} {{ form.firstname }}
+                        {% if form.firstname.errors %}
+                        <ul class="errors">
+                            {% for error in form.firstname.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="form-field">{{ form.lastname.label }} {{ form.lastname }}
+                        {% if form.lastname.errors %}
+                        <ul class="errors">
+                            {% for error in form.lastname.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="form-field">{{ form.email.label }} {{ form.email }}
+                        {% if form.email.errors %}
+                        <ul class="errors">
+                            {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="form-field">{{ form.password.label }} {{ form.password }}
+                        {% if form.password.errors %}
+                        <ul class="errors">
+                            {% for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="form-field">{{ form.confirmPassword.label }} {{ form.confirmPassword }}
+                        {% if form.confirmPassword.errors %}
+                        <ul class="errors">
+                            {% for error in form.confirmPassword.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    {{ form.submit }}
+                </form>
+            </div>
+        </div>
+    </body>
+    <footer>
 
-</footer>
+    </footer>
 
 </html>

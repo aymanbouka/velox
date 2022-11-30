@@ -5,3 +5,20 @@ div.msg_bbl {
   color: #555;
   margin-bottom: 5px;
 }
+
+.back_button {
+  position: relative;
+  right: 45%;
+}
+
+.text-center b {
+  font-size: 20px;
+}
+
+.back_button a:hover {
+  text-decoration: none;
+}
+
+.back_button a:link {
+  text-decoration: none;
+}
