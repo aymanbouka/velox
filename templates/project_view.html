@@ -14,12 +14,14 @@
     </head>
 
     <body>
-        <a class="back_button" a href="{{ url_for('main') }}">
-            <i class="fa-solid fa-arrow-left"></i>
-        </a>
+       
         <div class="box">
-
-            <h1 id="h1">Document</h1>
+            <div class="content">
+            <a class="back_button" a href="{{ url_for('main') }}">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h1>{% if project %}{{project.title}} {% endif %}</h1>
+        </div>
         </div>
 
         <p>
@@ -28,8 +30,8 @@
             {% else %}
             <form action="new" method="post">
                 {% endif %}
-                <p><label>Title: </label></p>
-                <p>{% if project %}{{project.title}} {% endif %}</p>
+                <!-- <p><label>Title: </label></p>
+                <p>{% if project %}{{project.title}} {% endif %}</p> -->
                 <!-- <p><input type="text" name="title" value=""/></p> -->
 
                 </p>
@@ -53,12 +55,12 @@
 
     </body>
 
-    <footer id="footer">
+    <!-- <footer id="footer">
         <form>
             <label for="comment">Comment</label>
             <input type="text" id="text" name="text">
             <button id="enter-button">Enter</button>
         </form>
-    </footer>
+    </footer> -->
 
 </html>

@@ -15,10 +15,6 @@ h2 {
   margin-left: 225px;
 }
 
-div {
-  text-align: center;
-  width: 942px;
-}
 
 img {
   margin-top: -35%;
@@ -54,7 +50,7 @@ h1 {
 .back_button {
   text-decoration: none;
   color: black;
-  width: 100%;
+  margin: auto;
 }
 
 #sign-up-button {
@@ -83,8 +79,8 @@ h1 {
 
 .box {
   background-color: blue;
-  width: 100%;
   height: 40px;
+  width: 100%;
   display: flex;
 }
 
@@ -98,11 +94,10 @@ h1 {
 }
 
 .textbox {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
   height: 883px;
   border: solid 3px black;
+  width: 75%;
+  margin: auto;
 }
 #project {
   /* width: 50%;
@@ -132,3 +127,14 @@ h1 {
 #project-view-para {
   text-align: center;
 }
+
+.content {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+/* .content h1 {
+  justify-content: center;
+} */
