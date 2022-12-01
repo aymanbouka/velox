@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/default.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
-   
-</head>
-<body>
-    <a class="back_button" a href=main>
-        <i class="fa-solid fa-arrow-left"></i>
-       </a>
-    <div class="box">
-        
-        <h1 id="h1">Document</h1>
-    </div>
 
-<p>
-    {% if project %}
-        <form action="{{ url_for('get_project', project_id=project.id) }}" method="post">
-    {% else %}
-        <form action="new" method="post">
-    {% endif %}
-    <p><label>Title: </label></p>
-    <p>{% if project %}{{project.title}} {% endif %}</p>
-    <!-- <p><input type="text" name="title" value=""/></p> -->
-  
-</p>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/default.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <title>Document</title>
 
-    <div class="textbox">
-        {% if project %}
-        <form action="{{ url_for('get_project', project_id=project.id) }}" method="post">
-    {% else %}
-        <form action="new" method="post">
-    {% endif %}
- 
-    <p id="project-view-para"><label>Project </label></p>
-    <p>
+    </head>
+
+    <body>
+        <a class="back_button" a href="{{ url_for('main') }}">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="box">
+
+            <h1 id="h1">Document</h1>
+        </div>
+
+        <p>
             {% if project %}
-                {{project.text}}
+        <form action="{{ url_for('get_project', project_id=project.id) }}" method="post">
             {% else %}
-                Create your new project ...
-            {% endif %}
-    </p> 
-    </div>
-    
-</body>
+            <form action="new" method="post">
+                {% endif %}
+                <p><label>Title: </label></p>
+                <p>{% if project %}{{project.title}} {% endif %}</p>
+                <!-- <p><input type="text" name="title" value=""/></p> -->
 
-<!-- <footer id="footer">
-    <form>
-        <label for="comment">Comment</label>
-        <input type="text" id="text" name="text">
-        <button id="enter-button">Enter</button>
-    </form>
-</footer> -->
+                </p>
+
+                <div class="textbox">
+                    {% if project %}
+                    <form action="{{ url_for('get_project', project_id=project.id) }}" method="post">
+                        {% else %}
+                        <form action="new" method="post">
+                            {% endif %}
+
+                            <p id="project-view-para"><label>Project </label></p>
+                            <p>
+                                {% if project %}
+                                {{project.text}}
+                                {% else %}
+                                Create your new project ...
+                                {% endif %}
+                            </p>
+                </div>
+
+    </body>
+
+    <footer id="footer">
+        <form>
+            <label for="comment">Comment</label>
+            <input type="text" id="text" name="text">
+            <button id="enter-button">Enter</button>
+        </form>
+    </footer>
+
 </html>
