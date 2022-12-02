@@ -30,10 +30,6 @@
             {% else %}
             <form action="new" method="post">
                 {% endif %}
-                <!-- <p><label>Title: </label></p>
-                <p>{% if project %}{{project.title}} {% endif %}</p> -->
-                <!-- <p><input type="text" name="title" value=""/></p> -->
-
                 </p>
 
                 <div class="textbox">
@@ -53,8 +49,27 @@
                             </p>
                 </div>
 
+
+                {% if project.comments %}
+                {% if project.comments|length > 0 %}
+                <div class="comments">
+                    <h2>Comments</h2>
+                    <ul>
+                        {% for comment in project.comments %}
+                        <li>{{ comment.content }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endif %}
+                <form action="{{ url_for('new_comment', project_id=project.id) }}" method="post">
+                    <div class="formwrapper">
+                        <h2 class="comment-title">Add a comment</h2>
+                        <div class="form-field">
+                            {{ form.comment }}
+                        </div>
+                        {{ form.submit }}
+                    </div>
     </body>
-
-
 
 </html>

@@ -125,11 +125,14 @@ h1 {
 
 .formwrapper {
   margin-top: 20px;
-  width: 470px;
+  width: 400px;
   background: #fff;
   border-radius: 5px;
-  padding: 25px 25px 30px;
+  padding: 20px 20px 25px;
   box-shadow: 8px 8px 10px rgb(0 0 0 / 6%);
+  position: relative;
+  left: 20px;
+  bottom: 400px;
 }
 
 #comment {
@@ -155,4 +158,19 @@ h1 {
 }
 #comment::-webkit-scrollbar {
   width: 0px;
+}
+
+.comments {
+  width: 40vh;
+  position: relative;
+  left: 20px;
+  bottom: 500px;
+}
+
+.comments li {
+  list-style: none;
+}
+
+form {
+  max-height: 70vh;
 }

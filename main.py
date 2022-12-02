@@ -52,8 +52,10 @@ def main():
 def get_project(project_id):
     if session.get('user'):
         my_project = db.session.query(Project).filter_by(id=project_id).one()
+
         form = CommentForm()
     return render_template('project_view.html', project = my_project, user = session['user'], form=form)
+
 
 @app.route('/main/new', methods=['GET', 'POST'])
 def new_project():
@@ -85,7 +87,6 @@ def edit_project(project_id):
             title = request.form["title"]
             text = request.form["projectText"]
             project = db.session.query(Project).filter_by(id=project_id).one()
-            
             project.title = title
             project.text = text
             db.session.add(project)
@@ -93,8 +94,7 @@ def edit_project(project_id):
             return redirect(url_for('main'))
         else:
             my_project =  db.session.query(Project).filter_by(id=project_id).one()
-            form = CommentForm()
-            return render_template('new.html', project=my_project, user=session['user'], form=form)
+            return render_template('new.html', project=my_project, user=session['user'])
 
 @app.route("/todo")
 def todo():
@@ -191,7 +191,7 @@ def logout():
         session.clear()
     return redirect(url_for('main'))
 
-@app.route('/main/edit/<project_id>', methods=['POST'])
+@app.route('/main/<project_id>', methods=['POST'])
 def new_comment(project_id):
     if session.get('user'):
         comment_form = CommentForm()
