@@ -52,7 +52,10 @@ def main():
 def get_project(project_id):
     if session.get('user'):
         my_project = db.session.query(Project).filter_by(id=project_id).one()
-    return render_template('project_view.html', project = my_project, user = session['user'])
+
+        form = CommentForm()
+    return render_template('project_view.html', project = my_project, user = session['user'], form=form)
+
 
 @app.route('/main/new', methods=['GET', 'POST'])
 def new_project():
@@ -188,7 +191,7 @@ def logout():
         session.clear()
     return redirect(url_for('main'))
 
-@app.route('/main/edit/<project_id>', methods=['POST'])
+@app.route('/main/<project_id>', methods=['POST'])
 def new_comment(project_id):
     if session.get('user'):
         comment_form = CommentForm()
@@ -200,7 +203,7 @@ def new_comment(project_id):
             db.session.add(new_record)
             db.session.commit()
 
-        return redirect(url_for('get_note', project_id=project_id))
+        return redirect(url_for('get_project', project_id=project_id))
 
     else:
         return redirect(url_for('login'))

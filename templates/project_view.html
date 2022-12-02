@@ -54,13 +54,22 @@
                 </div>
 
     </body>
-
-    <!-- <footer id="footer">
-        <form>
-            <label for="comment">Comment</label>
-            <input type="text" id="text" name="text">
-            <button id="enter-button">Enter</button>
-        </form>
-    </footer> -->
+    {% if project.comments %}
+        {% if project.comments|length > 0 %}
+            <h2>Comments</h2>
+            <ul>
+            {% for comment in project.comments %}
+                <li>{{ comment.content }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
+        <form action="{{ url_for('new_comment', project_id=project.id) }}" method="post">
+            <div class="formwrapper">
+                <h2 class="title">Add a comment</h2>
+                <div class="form-field">
+                    {{ form.comment.label }} <br /> {{ form.comment }}
+                </div>
+                {{ form.submit }}
 
 </html>
