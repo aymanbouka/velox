@@ -22,25 +22,7 @@
             <textarea id="project" rows="50" cols="50">
        </textarea>
         </div>
-        {% if project.comments %}
-        {% if project.comments|length > 0 %}
-        <h2>Comments</h2>
-        <ul>
-            {% for comment in project.comments %}
-            <li>{{ comment.content }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endif %}
-        <form action="{{ url_for('new_comment', note_id=note.id) }}" method="post">
-            <div class="formwrapper">
-                <h2 class="title">Add a comment</h2>
-                <div class="form-field">
-                    {{ form.comment.label }} <br /> {{ form.comment }}
-                </div>
-                {{ form.submit }}
-            </div>
-        </form>
+
     </body>
 
 </html>

@@ -26,8 +26,8 @@
                     {% endif %}
                     <div class="wrapper">
                         <p><label>Title</label></p>
-                        <p><input class='title' type="text" name="title"
-                                value="{% if project %}{{project.title}} {% endif %}" /></p>
+                        <input class='title' type="text" name="title"
+                            value="{% if project %}{{project.title}} {% endif %}" />
 
                         <textarea spellcheck=" false" required name='projectText'>{% if project %} {{project.text}} {% else
                         %} {% endif %}</textarea>
@@ -39,6 +39,26 @@
                         <input type="submit" value="Add Project" />
                         {% endif %}
                     </div>
+
+                    {% if project.comments %}
+                    {% if project.comments|length > 0 %}
+                    <h2>Comments</h2>
+                    <ul>
+                        {% for comment in project.comments %}
+                        <li>{{ comment.content }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endif %}
+                    <form action="{{ url_for('new_comment', project_id=project.id) }}" method="post">
+                        <div class="formwrapper">
+                            <h2 class="comment_title">Add a comment</h2>
+                            <div class="form-field">
+                                {{ form.comment }}
+                            </div>
+                            {{ form.submit }}
+                        </div>
+                    </form>
         </div>
         <script>
             const textarea = document.querySelector("textarea");
