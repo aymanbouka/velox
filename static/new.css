@@ -123,3 +123,18 @@ h1 {
   height: 500px;
   background: white;
 }
+
+.comments {
+  width: 40vh;
+  position: relative;
+  left: 20px;
+  bottom: 550px;
+}
+
+.comments li {
+  list-style: none;
+}
+
+.comment-title {
+  padding-top: 20px;
+}
