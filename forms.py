@@ -4,6 +4,10 @@ from wtforms.validators import Length, Regexp, DataRequired, EqualTo, Email
 from wtforms import ValidationError
 from model import User
 from database import db
+from flask_wtf import FlaskForm
+from wtforms import FileField
+from werkzeug.utils import secure_filename
+from wtforms.validators import InputRequired
 
 
 
@@ -58,3 +62,4 @@ class CommentForm(FlaskForm):
     comment = TextAreaField('Comment',validators=[Length(min=1)])
 
     submit = SubmitField('Add Comment')
+
