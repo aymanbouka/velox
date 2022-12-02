@@ -15,7 +15,6 @@ h2 {
   margin-left: 225px;
 }
 
-
 img {
   margin-top: -35%;
 }
@@ -94,14 +93,13 @@ h1 {
 }
 
 .textbox {
-  height: 883px;
+  height: 700px;
   border: solid 3px black;
-  width: 75%;
+  width: 40%;
   margin: auto;
 }
+
 #project {
-  /* width: 50%;
-    height: 500px; */
   resize: none;
 }
 

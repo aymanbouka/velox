@@ -9,10 +9,12 @@ from database import db
 from model import Todo as Todo
 from model import Project as Project
 from model import User as User
+from model import Comment as Comment
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, send, emit
-from forms import RegisterForm, LoginForm
+from forms import RegisterForm, LoginForm, CommentForm
 import bcrypt
+
 
 
 app = Flask(__name__)  # create an app
@@ -186,6 +188,22 @@ def logout():
         session.clear()
     return redirect(url_for('main'))
 
+@app.route('/main/edit/<project_id>', methods=['POST'])
+def new_comment(project_id):
+    if session.get('user'):
+        comment_form = CommentForm()
+        # validate_on_submit only validates using POST
+        if comment_form.validate_on_submit():
+            # get comment data
+            comment_text = request.form['comment']
+            new_record = Comment(comment_text, int(project_id), session['user_id'])
+            db.session.add(new_record)
+            db.session.commit()
+
+        return redirect(url_for('get_note', project_id=project_id))
+
+    else:
+        return redirect(url_for('login'))
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 

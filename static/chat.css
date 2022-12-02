@@ -22,3 +22,24 @@ div.msg_bbl {
 .back_button a:link {
   text-decoration: none;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}

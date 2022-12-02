@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #ddd;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.back_button {
+  margin-left: 3px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+.title {
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  width: 470px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 25px 25px 30px;
+  box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.06);
+}
+.wrapper h2 {
+  color: #000000;
+  font-size: 28px;
+  text-align: center;
+}
+.wrapper textarea {
+  width: 100%;
+  resize: none;
+  height: 59px;
+  outline: none;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 5px;
+  max-height: 330px;
+  caret-color: #000000;
+  border: 1px solid #bfbfbf;
+}
+textarea::placeholder {
+  color: #b3b3b3;
+}
+textarea:is(:focus, :valid) {
+  padding: 14px;
+  border: 2px solid #bfbfbf;
+}
+textarea::-webkit-scrollbar {
+  width: 0px;
+}
+
+.buttons input {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.buttons input:hover {
+  cursor: pointer;
+}
+
+h1 {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.body {
+  text-align: left;
+  border: solid 3px black;
+  margin: auto;
+  width: 40%;
+  height: 500px;
+  background: white;
+}
