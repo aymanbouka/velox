@@ -17,6 +17,7 @@ import bcrypt
 
 
 
+
 app = Flask(__name__)  # create an app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///velox.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
@@ -155,7 +156,9 @@ def register():
         db.session.commit()
         # save the user's name to the session
         session['user'] = first_name
+        session['email']= request.form['email']
         session['user_id'] = new_user.id  # access id value from user model of this newly added user
+       
         # show user dashboard view
         return redirect(url_for('main'))
 
@@ -173,6 +176,7 @@ def login():
         if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
             # password match add user info to session
             session['user'] = the_user.first_name
+            session['email']= request.form['email']
             session['user_id'] = the_user.id
             # render view
             return redirect(url_for('main'))
@@ -207,6 +211,11 @@ def new_comment(project_id):
 
     else:
         return redirect(url_for('login'))
+
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('profile.html')
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
