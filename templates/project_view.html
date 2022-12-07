@@ -52,17 +52,7 @@
                                 {% endif %}
                             </p>
                 </div>
-                <div class="comments">
-                    {% if project.comments %}
-                    {% if project.comments|length > 0 %}
-                    <h2>Comments</h2>
-                    <ul>
-                        {% for comment in project.comments %}
-                        <li>{{ comment.content }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    {% endif %}
+               
                     <form action="{{ url_for('new_comment', project_id=project.id) }}" method="post">
                         <div class="formwrapper">
                             <h2 class="comment-title">Add a comment</h2>
@@ -71,6 +61,27 @@
 
                             </div>
                             {{ form.submit }}
+                        </div>
+                    </form>
+
+                        <div class="comments">
+                            {% if project.comments %}
+                            {% if project.comments|length > 0 %}
+                            <h2>Comments</h2>
+                            <ul>
+                                {% for comment in project.comments %}
+                                <li>{{ comment.content }}</li>
+                                <div class="formwrapper">
+                                    <form action="{{ url_for('delete_comment', project_id=project.id, comment_id=comment.id) }}" method="post">
+                                        <input type="submit" value="Delete" />
+                                    </form>
+                                </div>
+                                    </li>
+                                  </ul>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            {% endif %}
                         </div>
     </body>
 

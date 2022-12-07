@@ -212,6 +212,12 @@ def new_comment(project_id):
     else:
         return redirect(url_for('login'))
 
+@app.route("/main/delete_comment/<project_id>/<comment_id>", methods=['POST'])
+def delete_comment(project_id,comment_id):
+    delete_comment = Comment.query.filter_by(id=comment_id).first()
+    db.session.delete(delete_comment)
+    db.session.commit()
+    return redirect(url_for('get_project', project_id=project_id))
 
 @app.route('/dashboard')
 def dashboard():
