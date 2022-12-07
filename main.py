@@ -5,6 +5,7 @@ from flask import Flask  # Flask is the web app that we will customize
 from flask import render_template
 from flask import request, session
 from flask import redirect, url_for 
+from flask import flash
 from database import db
 from model import Todo as Todo
 from model import Project as Project
@@ -12,7 +13,7 @@ from model import User as User
 from model import Comment as Comment
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO, send, emit
-from forms import RegisterForm, LoginForm, CommentForm
+from forms import RegisterForm, LoginForm, CommentForm, PasswordForm
 import bcrypt
 
 
@@ -213,9 +214,12 @@ def new_comment(project_id):
         return redirect(url_for('login'))
 
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=["GET", "POST"])
 def dashboard():
-    return render_template('profile.html')
+    password_form = PasswordForm()
+    
+    
+    return render_template('profile.html', form=password_form)
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
 
