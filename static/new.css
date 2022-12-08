@@ -138,3 +138,19 @@ h1 {
 .comment-title {
   padding-top: 20px;
 }
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete {
+  border: none;
+  background-color: #ddd;
+  color: #0000ee;
+  cursor: pointer;
+}
+
+.newcomment {
+  margin-left: 15px;
+}
