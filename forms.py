@@ -67,12 +67,10 @@ class PasswordForm(FlaskForm):
     class Meta:
         csrf = False
 
-    password = PasswordField('New Password', [
+    new_password = PasswordField('New Password', validators=[
+        Length(min=6, max=10),
         DataRequired(message="Please enter a new password."),
-        EqualTo('confirmPassword', message='Passwords must match')
+        
     ])
 
-    confirmPassword = PasswordField('Confirm Password', validators=[
-        Length(min=6, max=10)
-    ])
     submit = SubmitField('Submit')
