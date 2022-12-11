@@ -225,17 +225,20 @@ def delete_comment(project_id,comment_id):
 def dashboard():
     form = PasswordForm()
     if request.method == 'POST':
-        user_id = session['user_id'] 
-        # get the data from the form fields 
-        new_password = request.form['new-password']
-        # connect to database
-        conn = sqlite3.connect('velox.db') 
-        c = conn.cursor
-        # update password in database
-        c.execute("UPDATE users SET password = ? where id = ?", (new_password, user_id))
-        # save changes and close connection
-        conn.commit()
-        conn.close() 
+            user_id = session['user_id'] 
+            # get the data from the form fields 
+            new_password = bcrypt.hashpw(
+            request.form['new_password'].encode('utf-8'), bcrypt.gensalt())
+            # connect to database
+            conn = sqlite3.connect('instance/velox.db') 
+            c = conn.cursor()
+            # update password in database
+            c.execute("UPDATE user SET password = ? where id = ?", (new_password, user_id))
+            flash('password changed successfuly!')
+            # save changes and close connection
+            conn.commit()   
+            conn.close() 
+         
     return render_template('profile.html', form=form)
 
 app.run(host=os.getenv('IP', '127.0.0.1'), port=int(os.getenv('PORT', 5000)), debug=True)
