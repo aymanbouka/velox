@@ -5,12 +5,7 @@
 }
 
 nav {
-  display: flex;
-  padding-top: 20px;
-  align-items: center;
-  justify-content: space-between;
-  width: 95%;
-  text-align: center;
+  width: 100%;
 }
 
 .title h3 {
@@ -32,6 +27,10 @@ hr {
 h2 {
   padding-left: 20px;
   font-size: 30px;
+}
+
+.create {
+  margin-top: 20px;
 }
 
 .new {
@@ -76,9 +75,14 @@ a {
 
 .documents input {
   padding: 5px;
-  background-color: lightblue;
+  background-color: rgb(88, 89, 90);
   border-radius: 8px;
   margin-bottom: 5px;
+  color: white;
+}
+
+.documents input:hover {
+  cursor: pointer;
 }
 
 .recentproject td {

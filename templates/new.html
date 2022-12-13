@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Velox">
         <title>Velox - New Project</title>
-        <!-- styles -->
-        
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/static/new.css">
+
+
     </head>
+
     <body>
 
-            {% if project %}
-			    <form action="{{ url_for('edit_project', project_id=project.id) }}" method="post">
-		    {% else %}
-			    <form action="new" method="post">
-		    {% endif %}
-            <p><label>Title </label></p>
-            <p><input type="text" name="title" value="{% if project %}{{project.title}} {% endif %}"/></p>
-            <p><label>Project </label></p>
-		    <p>
-                <textarea name="projectText" rows="50" cols="250">
-                    {% if project %}
-                        {{project.text}}
-                    {% else %}
-                        Create your new project ...
-                    {% endif %}
-                </textarea>
-		    </p>
-           <p>
+        <div class="box">
+            <div class="content">
+                <a class="back_button" a href="{{ url_for('main') }}">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+
+            </div>
+            <div class="container">
                 {% if project %}
-                    <input type="submit" value="Update Project"/>
-                {% else %}
-			        <input type="submit" value="Add Project"/>
-                {% endif %}
-			</p>
+                <form action="{{ url_for('edit_project', project_id=project.id) }}" method="post">
+                    {% else %}
+                    <form action="new" method="post">
+                        {% endif %}
+                        <div class="wrapper">
+                            <p><label>Title</label></p>
+                            <p><input class='title' type="text" name="title"
+                                    value="{% if project %}{{project.title}} {% endif %}" /></p>
+
+                            <textarea spellcheck=" false" required name='projectText'>{% if project %} {{project.text}} {% else
+                        %} {% endif %}</textarea>
+                        </div>
+                        <div class="buttons">
+                            {% if project %}
+                            <input type="submit" value="Update Project" />
+                            {% else %}
+                            <input type="submit" value="Add Project" />
+                            {% endif %}
+                        </div>
+            </div>
+            <script>
+                const textarea = document.querySelector("textarea");
+                textarea.addEventListener("keyup", e => {
+                    textarea.style.height = "63px";
+                    let scHeight = e.target.scrollHeight;
+                    textarea.style.height = `${scHeight}px`;
+                });
+            </script>
     </body>
+
 </html>

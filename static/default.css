@@ -1,86 +1,75 @@
-
-body{
-    margin: 0;
+body {
+  margin: 0;
 }
 
 main {
-    margin-top: 10%;    
+  margin-top: 10%;
 }
 
 p {
-    margin-right: auto;
-    margin-left: 13px;
+  margin-right: auto;
+  margin-left: 13px;
 }
 
 h2 {
-    margin-left: 225px;
-}
-
-div {
-    text-align: center;
-    width: 942px;
+  margin-left: 225px;
 }
 
 img {
-    margin-top: -35%;
+  margin-top: -35%;
 }
 
 h1 {
-    color: white;
-    font-size: smaller;
-    text-align:left;
-    margin-left: 15%;
-} 
+  color: white;
+  font-size: smaller;
+  text-align: left;
+  margin-left: 15%;
+}
 
 #enter-button {
-    margin-right: -700px;
-    
+  margin-right: -700px;
 }
 
 .button {
-    background-color: #357ebd;
-    color: azure ;
-    width: 150px;
-    height: 26px;
+  background-color: #357ebd;
+  color: azure;
+  width: 150px;
+  height: 26px;
 }
 
 .left {
-    margin: 45px;
+  margin: 45px;
 }
 
 .logo {
-    text-decoration: none;
-    color: black;
-    
+  text-decoration: none;
+  color: black;
 }
 
 .back_button {
-    text-decoration: none;
-    color: black;
-    width: 100%;
+  text-decoration: none;
+  color: black;
+  margin: auto;
 }
 
 #sign-up-button {
-    background-color: #4b4c4e;
-    color: white ;
-    width: 150px;
-    height: 26px;
-    border-radius: 12px;
-    
-} 
+  background-color: #4b4c4e;
+  color: white;
+  width: 150px;
+  height: 26px;
+  border-radius: 12px;
+}
 
 #log-in-button {
-    background-color: #f8f8f8;
-    color: white ;
-    width: 150px;
-    height: 26px;
-    border-radius: 12px; 
-    color: black;
-    
+  background-color: #f8f8f8;
+  color: white;
+  width: 150px;
+  height: 26px;
+  border-radius: 12px;
+  color: black;
 }
 
 .div-for-button {
-
   display: flex;
   border: none;
   margin-left: auto;
@@ -88,38 +77,30 @@ h1 {
 }
 
 .box {
-    background-color: blue;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    
-
+  background-color: blue;
+  height: 40px;
+  width: 100%;
+  display: flex;
 }
 
 #footer {
-    padding: 0;
-    line-height: normal;
-    margin: 0;
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
+  padding: 0;
+  line-height: normal;
+  margin: 0;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
 }
 
-.textbox{
-    
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    height: 883px;
-    border: solid 3px black;
-    
+.textbox {
+  height: 700px;
+  border: solid 3px black;
+  width: 40%;
+  margin: auto;
 }
+
 #project {
-    /* width: 50%;
-    height: 500px; */
-    resize: none;
-   
-   
+  resize: none;
 }
 
 /* .center-content-for-sign-up {
@@ -131,8 +112,8 @@ h1 {
 } */
 
 #edit-button-project-edit {
-    margin-left: 1000px;
-    margin-top: 7px;
+  margin-left: 1000px;
+  margin-top: 7px;
 }
 /* #edit-button {
     margin-right: -1096px;
@@ -142,5 +123,16 @@ h1 {
 } */
 
 #project-view-para {
-    text-align: center;
+  text-align: center;
 }
+
+.content {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+/* .content h1 {
+  justify-content: center;
+} */
